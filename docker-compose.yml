@@ -58,8 +58,7 @@ services:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 3s
-      retries: 5
-      start_period: 30s
+      retries: 3
 
 volumes:
   evolution_store:
