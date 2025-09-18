@@ -60,6 +60,23 @@ services:
       timeout: 3s
       retries: 3
 
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - WEBHOOK_URL=http://localhost:5678/
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+    networks:
+      - evolution-network 
+    depends_on:
+      - evolution-api
+
 volumes:
   evolution_store:
     driver: local
@@ -68,6 +85,8 @@ volumes:
   postgres_data:
     driver: local
   redis_data:
+    driver: local
+  n8n_data:
     driver: local
 
 networks:
